@@ -139,7 +139,7 @@ public final class SvgDrawable extends Drawable {
 		int dw = bounds.width();
 		int dh = bounds.height();
 		
-		canvas.drawLine(0, 0, dw, dh, mPaint);
+		//canvas.drawLine(0, 0, dw, dh, mPaint);
 
 		//canvas.scale(0.5f, 0.5f);
 		// render the svg direct to drawable's canvas
