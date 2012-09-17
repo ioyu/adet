@@ -1,4 +1,5 @@
 #A very simple project to demonstrate adet.
 
-= soure address =
+== soure address ==
 
+http://adet.googlecode.com/svn/trunk/AdetSample
