@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Manfeel
+ * Copyright (C) 2012 manfeel@foxmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class MyLayerDrawable extends LayerDrawable {
 			}
 
 			a = r.obtainAttributes(attrs, InternalR.styleable("LayerDrawableItem"));
-
+			
 			int left = a.getDimensionPixelOffset(InternalR.styleable("LayerDrawableItem", "left"), 0);
 			int top = a.getDimensionPixelOffset(InternalR.styleable("LayerDrawableItem", "top"), 0);
 			int right = a.getDimensionPixelOffset(InternalR.styleable("LayerDrawableItem", "right"), 0);
