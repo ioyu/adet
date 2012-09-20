@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Manfeel
+ * Copyright (C) 2012 manfeel@foxmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,22 +97,30 @@ public final class SvgDrawable extends Drawable {
 				String content = EncodingUtils.getString(buffer, "UTF-8");
 				buffer = null;
 
-				// Parse it
-				mSvgId = SvgRaster.svgAndroidCreate();
-				if (SvgRaster.svgAndroidParseBuffer(mSvgId, content) != 0) {
-					android.util.Log.w("SvgDrawable", "SvgDrawable cannot decode " + is);
-				}
-
-				SvgRaster.svgAndroidSetAntialiasing(mSvgId, true);
-
-				mWidth = SvgRaster.svgAndroidGetWidth(mSvgId);
-				mHeight = SvgRaster.svgAndroidGetHeight(mSvgId);
-				return true;
+				return LoadSvg(res, content);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+
 		}
 		return false;
+	}
+
+	/**
+	 * Decodes a drawable from the given content.
+	 */
+	public boolean LoadSvg(Resources res, String content) {
+		// Parse it
+		mSvgId = SvgRaster.svgAndroidCreate();
+		if (SvgRaster.svgAndroidParseBuffer(mSvgId, content) != 0) {
+			android.util.Log.w("SvgDrawable", "SvgDrawable cannot decode!");
+			return false;
+		}
+
+		SvgRaster.svgAndroidSetAntialiasing(mSvgId, true);
+
+		mWidth = SvgRaster.svgAndroidGetWidth(mSvgId);
+		mHeight = SvgRaster.svgAndroidGetHeight(mSvgId);
+		return true;
 	}
 
 	public final Paint getPaint() {
@@ -138,7 +146,7 @@ public final class SvgDrawable extends Drawable {
 		Rect bounds = this.getBounds();
 		int dw = bounds.width();
 		int dh = bounds.height();
-		
+
 		//canvas.drawLine(0, 0, dw, dh, mPaint);
 
 		//canvas.scale(0.5f, 0.5f);
