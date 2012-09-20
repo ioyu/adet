@@ -62,7 +62,7 @@ public final class SvgDrawable extends Drawable {
 			return null;
 		}
 
-		SvgDrawable obj = new SvgDrawable(res, inStream);
+		SvgDrawable obj = new SvgDrawable(inStream);
 		return obj;
 	}
 
@@ -70,22 +70,22 @@ public final class SvgDrawable extends Drawable {
 	 * Create a drawable by opening a given file path
 	 * @throws FileNotFoundException 
 	 */
-	public SvgDrawable(Resources res, String filepath) throws FileNotFoundException {
+	public SvgDrawable(String filepath) throws FileNotFoundException {
 		FileInputStream f = new FileInputStream(filepath);
-		LoadSvg(res, f);
+		LoadSvg(f);
 	}
 
 	/**
 	 * Create a drawable by decoding a bitmap from the given input stream.
 	 */
-	public SvgDrawable(Resources res, java.io.InputStream is) {
-		LoadSvg(res, is);
+	public SvgDrawable(java.io.InputStream is) {
+		LoadSvg(is);
 	}
 
 	/**
 	 * Decodes a drawable from the given input stream.
 	 */
-	public boolean LoadSvg(Resources res, java.io.InputStream is) {
+	public boolean LoadSvg(java.io.InputStream is) {
 		try {
 			// Read into the buffer
 			if (is != null) {
@@ -97,7 +97,7 @@ public final class SvgDrawable extends Drawable {
 				String content = EncodingUtils.getString(buffer, "UTF-8");
 				buffer = null;
 
-				return LoadSvg(res, content);
+				return LoadSvg(content);
 			}
 		} catch (IOException ex) {
 
@@ -108,7 +108,7 @@ public final class SvgDrawable extends Drawable {
 	/**
 	 * Decodes a drawable from the given content.
 	 */
-	public boolean LoadSvg(Resources res, String content) {
+	public boolean LoadSvg(String content) {
 		// Parse it
 		mSvgId = SvgRaster.svgAndroidCreate();
 		if (SvgRaster.svgAndroidParseBuffer(mSvgId, content) != 0) {
