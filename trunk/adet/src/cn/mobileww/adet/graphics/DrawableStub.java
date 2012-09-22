@@ -61,57 +61,58 @@ public class DrawableStub {
 		return drawable;
 	}
 
-	 /**
-   * Create from inside an XML document.  Called on a parser positioned at
-   * a tag in an XML document, tries to create a Drawable from that tag.
-   * Returns null if the tag is not a valid drawable.
-   */
-  public static Drawable createFromXmlInner(Resources r, XmlPullParser parser, AttributeSet attrs)
-  throws XmlPullParserException, IOException {
-      Drawable drawable;
+	/**
+	* Create from inside an XML document.  Called on a parser positioned at
+	* a tag in an XML document, tries to create a Drawable from that tag.
+	* Returns null if the tag is not a valid drawable.
+	*/
+	public static Drawable createFromXmlInner(Resources r, XmlPullParser parser, AttributeSet attrs)
+			throws XmlPullParserException, IOException {
+		Drawable drawable;
 
-      final String name = parser.getName();
-      // TODO: we can add our custom drawable tags here  
-      if (name.equals("selector")) {
-          drawable = new MyStateListDrawable();
-      } else if (name.equals("level-list")) {
-          drawable = new LevelListDrawable();
-      } else if (name.equals("layer-list")) {
-          drawable = new MyLayerDrawable();
-      } else if (name.equals("transition")) {
-          drawable = (Drawable)ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
-      } else if (name.equals("color")) {
-          drawable = new ColorDrawable();
-      } else if (name.equals("shape")) {
-          drawable = new GradientDrawable();
-      } else if (name.equals("scale")) {
-          drawable = (Drawable)ReflectUtil.New(ScaleDrawable.class);//new ScaleDrawable();
-      } else if (name.equals("clip")) {
-          drawable = (Drawable)ReflectUtil.New(ClipDrawable.class);//new ClipDrawable();
-      } else if (name.equals("rotate")) {
-          drawable = new RotateDrawable();
-      } else if (name.equals("animated-rotate")) {
-          drawable = (Drawable)ReflectUtil.New("android.graphics.drawable.AnimatedRotateDrawable");//new AnimatedRotateDrawable();            
-      } else if (name.equals("animation-list")) {
-          drawable = new AnimationDrawable();
-      } else if (name.equals("inset")) {
-          drawable = (Drawable)ReflectUtil.New(InsetDrawable.class);//new InsetDrawable();
-      } else if (name.equals("bitmap")) {
-          drawable = new BitmapDrawable();
-          if (r != null) {
-             ((BitmapDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
-          }
-      } else if (name.equals("nine-patch")) {
-          drawable = (Drawable)ReflectUtil.New(NinePatchDrawable.class);//new NinePatchDrawable();
-          if (r != null) {
-              ((NinePatchDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
-           }
-      } else {
-          throw new XmlPullParserException(parser.getPositionDescription() +
-                  ": invalid drawable tag " + name);
-      }
+		final String name = parser.getName();
+		// XXX: we can add our custom drawable tags here  
+if (name.equals("selector")) {
+			drawable = new MyStateListDrawable();
+		} else if (name.equals("level-list")) {
+			drawable = new LevelListDrawable();
+		} else if (name.equals("layer-list")) {
+			drawable = new MyLayerDrawable();
+		}	else if (name.equals("svg-wrapper")) {
+			drawable = new SvgWrapper(); // custom svg wrapper drawable
+		} else if (name.equals("transition")) {
+			drawable = (Drawable) ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
+		} else if (name.equals("color")) {
+			drawable = new ColorDrawable();
+		} else if (name.equals("shape")) {
+			drawable = new GradientDrawable();
+		} else if (name.equals("scale")) {
+			drawable = (Drawable) ReflectUtil.New(ScaleDrawable.class);//new ScaleDrawable();
+		} else if (name.equals("clip")) {
+			drawable = (Drawable) ReflectUtil.New(ClipDrawable.class);//new ClipDrawable();
+		} else if (name.equals("rotate")) {
+			drawable = new RotateDrawable();
+		} else if (name.equals("animated-rotate")) {
+			drawable = (Drawable) ReflectUtil.New("android.graphics.drawable.AnimatedRotateDrawable");//new AnimatedRotateDrawable();            
+		} else if (name.equals("animation-list")) {
+			drawable = new AnimationDrawable();
+		} else if (name.equals("inset")) {
+			drawable = (Drawable) ReflectUtil.New(InsetDrawable.class);//new InsetDrawable();
+		} else if (name.equals("bitmap")) {
+			drawable = new BitmapDrawable();
+			if (r != null) {
+				((BitmapDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
+			}
+		} else if (name.equals("nine-patch")) {
+			drawable = (Drawable) ReflectUtil.New(NinePatchDrawable.class);//new NinePatchDrawable();
+			if (r != null) {
+				((NinePatchDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
+			}
+		} else {
+			throw new XmlPullParserException(parser.getPositionDescription() + ": invalid drawable tag " + name);
+		}
 
-      drawable.inflate(r, parser, attrs);
-      return drawable;
-  }
+		drawable.inflate(r, parser, attrs);
+		return drawable;
+	}
 }
