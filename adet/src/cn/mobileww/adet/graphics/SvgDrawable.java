@@ -37,7 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class SvgDrawable extends Drawable {
+public class SvgDrawable extends Drawable {
 	private static final int DEFAULT_PAINT_FLAGS = Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG;
 
 	// Load native libraries
@@ -65,6 +65,10 @@ public final class SvgDrawable extends Drawable {
 		SvgDrawable obj = new SvgDrawable(inStream);
 		return obj;
 	}
+	
+	public SvgDrawable() {
+		
+	}
 
 	/**
 	 * Create a drawable by opening a given file path
@@ -82,6 +86,10 @@ public final class SvgDrawable extends Drawable {
 		LoadSvg(is);
 	}
 
+	public long getSvgId() {
+		return this.mSvgId;
+	}
+	
 	/**
 	 * Decodes a drawable from the given input stream.
 	 */
