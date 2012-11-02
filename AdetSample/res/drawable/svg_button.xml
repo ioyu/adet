@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:adet="http://schemas.android.com/apk/res-auto">
+
+    <item android:state_pressed="true">
+        <svg-wrapper adet:src="@drawable/lion" adet:width="100dp" adet:height="50dp"/>
+    </item>
+    <item>
+        <svg-wrapper adet:height="220dp" adet:src="@drawable/lion" adet:width="144dp" />
+    </item>
+
+</selector>
