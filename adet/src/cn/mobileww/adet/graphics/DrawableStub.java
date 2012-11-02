@@ -78,8 +78,8 @@ if (name.equals("selector")) {
 			drawable = new LevelListDrawable();
 		} else if (name.equals("layer-list")) {
 			drawable = new MyLayerDrawable();
-		}	else if (name.equals("svg-wrapper")) {
-			drawable = new SvgWrapper(); // custom svg wrapper drawable
+//		}	else if (name.equals("svg-wrapper")) {
+//			drawable = new SvgWrapper(); // custom svg wrapper drawable
 		} else if (name.equals("transition")) {
 			drawable = (Drawable) ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
 		} else if (name.equals("color")) {
