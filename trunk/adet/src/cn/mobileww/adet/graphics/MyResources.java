@@ -18,6 +18,9 @@ package cn.mobileww.adet.graphics;
 
 import java.lang.ref.WeakReference;
 
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
+
 import cn.mobileww.adet.util.ReflectUtil;
 
 import android.content.Context;
@@ -119,7 +122,11 @@ public class MyResources extends Resources {
 			//			SVG svg = SVGParser.getSVGFromResource(this, id);
 			//			dr = svg.createPictureDrawable();
 			// Retrieve ID of the resource
-			dr = SvgDrawable.getDrawable(this, id);
+			
+			//manfeel,2012-10-06
+//			dr = SvgDrawable.getDrawable(this, id);
+			SVG svg = SVGParser.getSVGFromResource(this, id);
+			dr = new SvgDrawable(svg.getPicture());
 
 		} else if (isXml) {
 			String file = value.string.toString();
