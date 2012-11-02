@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg-wrapper xmlns:adet="http://schemas.android.com/apk/res-auto"
+    adet:src="@drawable/lion" 
+    adet:width="72dp"
+    adet:height="110dp"
+    />
+    
+

@@ -15,7 +15,6 @@
  */
 package cn.mobileww.adet.sample;
 
-import cn.mobileww.adet.ADET;
 import android.app.Activity;
 import android.os.Bundle;
 
