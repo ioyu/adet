@@ -16,6 +16,8 @@
 
 package cn.mobileww.adet.graphics;
 
+import com.larvalabs.svgandroid.SVG;
+
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.Rect;
@@ -23,22 +25,29 @@ import android.graphics.drawable.PictureDrawable;
 
 public class SvgDrawable extends PictureDrawable {
 
-	private Picture mPicture;
+	private SVG mSvg;
 	/**
 	 * @param picture
 	 */
-	public SvgDrawable(Picture picture) {
-		super(picture);
-		this.mPicture = picture;
+	public SvgDrawable(SVG mSvg) {
+		super(mSvg.getPicture());
+		this.mSvg = mSvg;
 	}
 	
+	
   @Override
+	protected void onBoundsChange(Rect bounds) {
+		super.onBoundsChange(bounds);
+	}
+
+
+	@Override
   public void draw(Canvas canvas) {
-      if (mPicture != null) {
+      if (mSvg.getPicture() != null) {
           Rect bounds = getBounds();
           canvas.save();
           // draw picture to fit bounds!
-          canvas.drawPicture(mPicture, bounds);
+          canvas.drawPicture(mSvg.getPicture(), bounds);
           canvas.restore();
       }
   }

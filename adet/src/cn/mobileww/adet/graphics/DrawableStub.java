@@ -72,14 +72,14 @@ public class DrawableStub {
 
 		final String name = parser.getName();
 		// XXX: we can add our custom drawable tags here  
-if (name.equals("selector")) {
+		if (name.equals("selector")) {
 			drawable = new MyStateListDrawable();
 		} else if (name.equals("level-list")) {
 			drawable = new LevelListDrawable();
 		} else if (name.equals("layer-list")) {
 			drawable = new MyLayerDrawable();
-//		}	else if (name.equals("svg-wrapper")) {
-//			drawable = new SvgWrapper(); // custom svg wrapper drawable
+			//		}	else if (name.equals("svg-wrapper")) {
+			//			drawable = new SvgWrapper(); // custom svg wrapper drawable
 		} else if (name.equals("transition")) {
 			drawable = (Drawable) ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
 		} else if (name.equals("color")) {
