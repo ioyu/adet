@@ -21,11 +21,14 @@ import com.larvalabs.svgandroid.SVG;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Drawable.ConstantState;
 import android.graphics.drawable.PictureDrawable;
 
 public class SvgDrawable extends PictureDrawable {
 
 	private SVG mSvg;
+	private SvgState mSvgState = new SvgState(this);
 	/**
 	 * @param picture
 	 */
@@ -51,5 +54,35 @@ public class SvgDrawable extends PictureDrawable {
           canvas.restore();
       }
   }
+	
+	@Override
+	public ConstantState getConstantState() {
+		return this.mSvgState;
+	}
+
+	final static class SvgState extends ConstantState {
+		private SvgDrawable mSvgDrawable;
+
+		private SvgState(SvgDrawable svgDrawable) {
+			this.mSvgDrawable = svgDrawable;
+		}
+		
+		/* (non-Javadoc)
+		 * @see android.graphics.drawable.Drawable.ConstantState#newDrawable()
+		 */
+		@Override
+		public Drawable newDrawable() {
+			return mSvgDrawable;
+		}
+
+		/* (non-Javadoc)
+		 * @see android.graphics.drawable.Drawable.ConstantState#getChangingConfigurations()
+		 */
+		@Override
+		public int getChangingConfigurations() {
+			return 0;
+		}
+		
+	}
 	
 }
