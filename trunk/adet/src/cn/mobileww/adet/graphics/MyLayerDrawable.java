@@ -35,7 +35,8 @@ import android.view.View;
  * @author Manfeel
  * Custom LayerDrawable to give us a chance for
  * defining custom XML drawable tags
- *
+ * the main difference is in inflate(...), just one line <br/><font color="blue">
+ * dr = DrawableStub.createFromXmlInner(r, parser, attrs);</font>
  */
 public class MyLayerDrawable extends LayerDrawable {
 
@@ -98,6 +99,7 @@ public class MyLayerDrawable extends LayerDrawable {
 					throw new XmlPullParserException(parser.getPositionDescription()
 							+ ": <item> tag requires a 'drawable' attribute or " + "child tag defining a drawable");
 				}
+				// XXX: this magic stub gives us a chance to create our custom drawable tag
 				dr = DrawableStub.createFromXmlInner(r, parser, attrs);
 			}
 
