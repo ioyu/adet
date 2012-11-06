@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2006 The Android Open Source Project
  * Copyright (C) 2012 manfeel@foxmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,6 +38,11 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 
+/**
+ * 
+ * @author Manfeel
+ * this code is partly from the Android SDK 4.0.3
+ */
 public class MyResources extends Resources {
 
 	static final String TAG = "MyResources";

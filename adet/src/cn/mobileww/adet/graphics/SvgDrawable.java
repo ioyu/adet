@@ -18,15 +18,20 @@ package cn.mobileww.adet.graphics;
 
 import com.larvalabs.svgandroid.SVG;
 
+import android.R.integer;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Drawable.ConstantState;
 import android.graphics.drawable.PictureDrawable;
+import android.util.Log;
 
 public class SvgDrawable extends PictureDrawable {
 
+	private final String TAG = "SvgDrawable";
+	
 	private SVG mSvg;
 	private SvgState mSvgState = new SvgState(this);
 	/**
@@ -41,6 +46,7 @@ public class SvgDrawable extends PictureDrawable {
   @Override
 	protected void onBoundsChange(Rect bounds) {
 		super.onBoundsChange(bounds);
+		//Log.w(TAG,bounds.toString());
 	}
 
 
@@ -54,13 +60,25 @@ public class SvgDrawable extends PictureDrawable {
           canvas.restore();
       }
   }
-	
+
+  @Override
+  public int getChangingConfigurations() {
+      int c = super.getChangingConfigurations() | mSvgState.mChangingConfigurations;
+      Log.e(TAG,"CC = " + c);
+      return c;
+  }
+  
 	@Override
 	public ConstantState getConstantState() {
-		return this.mSvgState;
+		// TODO: should return null at this time, if it returns the mSvgState, 
+		// then the fitXY will not work! Why?
+		return null;
+//		mSvgState.mChangingConfigurations = super.getChangingConfigurations();
+//		return this.mSvgState;
 	}
 
 	final static class SvgState extends ConstantState {
+		int mChangingConfigurations;
 		private SvgDrawable mSvgDrawable;
 
 		private SvgState(SvgDrawable svgDrawable) {
@@ -80,7 +98,7 @@ public class SvgDrawable extends PictureDrawable {
 		 */
 		@Override
 		public int getChangingConfigurations() {
-			return 0;
+			return mChangingConfigurations;
 		}
 		
 	}
