@@ -32,14 +32,15 @@ public class SvgDrawable extends PictureDrawable {
 
 	private final String TAG = "SvgDrawable";
 	
-	private SVG mSvg;
-	private SvgState mSvgState = new SvgState(this);
+	private Picture mPicture;
+	private SvgState mSvgState;
 	/**
 	 * @param picture
 	 */
-	public SvgDrawable(SVG mSvg) {
-		super(mSvg.getPicture());
-		this.mSvg = mSvg;
+	public SvgDrawable(SVG svg) {
+		super(svg.getPicture());
+		this.mPicture = svg.getPicture();
+		this.mSvgState = new SvgState(svg);
 	}
 	
 	
@@ -52,11 +53,11 @@ public class SvgDrawable extends PictureDrawable {
 
 	@Override
   public void draw(Canvas canvas) {
-      if (mSvg.getPicture() != null) {
+      if (mPicture != null) {
           Rect bounds = getBounds();
           canvas.save();
           // draw picture to fit bounds!
-          canvas.drawPicture(mSvg.getPicture(), bounds);
+          canvas.drawPicture(mPicture, bounds);
           canvas.restore();
       }
   }
@@ -70,19 +71,16 @@ public class SvgDrawable extends PictureDrawable {
   
 	@Override
 	public ConstantState getConstantState() {
-		// TODO: should return null at this time, if it returns the mSvgState, 
-		// then the fitXY will not work! Why?
-		return null;
-//		mSvgState.mChangingConfigurations = super.getChangingConfigurations();
-//		return this.mSvgState;
+		mSvgState.mChangingConfigurations = super.getChangingConfigurations();
+		return this.mSvgState;
 	}
 
 	final static class SvgState extends ConstantState {
 		int mChangingConfigurations;
-		private SvgDrawable mSvgDrawable;
+		private SVG mSvg;
 
-		private SvgState(SvgDrawable svgDrawable) {
-			this.mSvgDrawable = svgDrawable;
+		private SvgState(SVG svg) {
+			this.mSvg = svg;
 		}
 		
 		/* (non-Javadoc)
@@ -90,7 +88,7 @@ public class SvgDrawable extends PictureDrawable {
 		 */
 		@Override
 		public Drawable newDrawable() {
-			return mSvgDrawable;
+			return new SvgDrawable(mSvg);
 		}
 
 		/* (non-Javadoc)
