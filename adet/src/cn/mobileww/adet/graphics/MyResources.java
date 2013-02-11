@@ -40,7 +40,7 @@ import android.util.TypedValue;
 
 /**
  * 
- * @author Manfeel
+ * @author Google, Manfeel
  * this code is partly from the Android SDK 4.0.3
  */
 public class MyResources extends Resources {
@@ -132,7 +132,7 @@ public class MyResources extends Resources {
 					dr = new SvgDrawable(svg);
 				} else if (file.endsWith(".xml")) {
 					try {
-						XmlResourceParser rp = (XmlResourceParser) _self.invoke("loadXmlResourceParser", file, id,
+						XmlResourceParser rp = _self.invoke("loadXmlResourceParser", file, id,
 								value.assetCookie, "drawable");
 						dr = DrawableStub.createFromXml(this, rp);
 						rp.close();
@@ -148,7 +148,7 @@ public class MyResources extends Resources {
 						// manfeel,2012-11-05
 						// InputStream is = mAssets.openNonAsset(value.assetCookie, file, AssetManager.ACCESS_STREAMING);
 						ReflectUtil ru = new ReflectUtil(_self.get("mAssets"));
-						InputStream is = (InputStream) ru.invoke("openNonAsset", value.assetCookie, file,
+						InputStream is = ru.invoke("openNonAsset", value.assetCookie, file,
 								AssetManager.ACCESS_STREAMING);
 						//                System.out.println("Opened file " + file + ": " + is);
 						dr = Drawable.createFromResourceStream(this, value, is, file);

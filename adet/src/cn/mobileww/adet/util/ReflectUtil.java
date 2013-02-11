@@ -32,6 +32,8 @@ import android.widget.TextView.SavedState;
  */
 public class ReflectUtil {
 
+	public static final int LAYER_TYPE_SOFTWARE = 1;
+	
 	private Class<?> clz;
 	private Object inst;
 
@@ -168,7 +170,7 @@ public class ReflectUtil {
 		return f;
 	}
 
-	public static Object New(String className) {
+	public static <T> T New(String className) {
 		Class<?> clz = null;
 		try {
 			clz = Class.forName(className);
@@ -182,16 +184,16 @@ public class ReflectUtil {
 		return null;
 	}
 
-	public static Object New(Class<?> clz) {
-		Object inst = null;
+	@SuppressWarnings("unchecked")
+	public static <T> T New(Class<?> clz) {
 		try {
-			Constructor c = clz.getDeclaredConstructor(new Class[] {});
+			Constructor<?> c = clz.getDeclaredConstructor(new Class[] {});
 			c.setAccessible(true);
-			inst = c.newInstance(new Object[] {});
+			return (T) c.newInstance(new Object[] {});
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return inst;
+		return null;
 	}
 
 	/**
@@ -217,18 +219,17 @@ public class ReflectUtil {
 		}
 	}
 
-	public Object get(String fname) {
-		Object val = null;
-
+	@SuppressWarnings("unchecked")
+	public <T> T get(String fname) {
 		Field f = getDeclaredField(fname);
 
 		try {
-			val = f.get(inst);
+			return (T) f.get(inst);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		return val;
+		return null;
 	}
 
 	public void set(String fname, Object val) {
@@ -245,7 +246,8 @@ public class ReflectUtil {
 	 * @param mname
 	 * @return
 	 */
-	public Object invoke(String mname) {
+	@SuppressWarnings("unchecked")
+	public <T> T invoke(String mname) {
 		return invoke(mname, new Object[] {});
 	}
 
@@ -255,8 +257,8 @@ public class ReflectUtil {
 	 * @param params
 	 * @return
 	 */
-	public Object invoke(String mname, Object... params) {
-		Object rst = null;
+	@SuppressWarnings("unchecked")
+	public <T> T invoke(String mname, Object... params) {
 		try {
 			Class[] ptypes = params.length > 0 ? new Class[params.length] : new Class[] {};
 			for (int i = 0; i < params.length; i++) {
@@ -264,12 +266,12 @@ public class ReflectUtil {
 				ptypes[i] = getRealType(c);
 			}
 
-			rst = invoke(mname, ptypes, params);
+			return (T) invoke(mname, ptypes, params);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return rst;
+		return null;
 	}
 
 	/**
@@ -279,16 +281,15 @@ public class ReflectUtil {
 	 * @param params 具体的参数
 	 * @return
 	 */
-	public Object invoke(String mname, Class[] ptypes, Object... params) {
-		Object rst = null;
-
+	@SuppressWarnings("unchecked")
+	public <T> T invoke(String mname, Class[] ptypes, Object... params) {
 		try {
 			Method m = getDeclaredMethod(mname, ptypes);
-			rst = m.invoke(inst, params);
+			return (T) m.invoke(inst, params);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return rst;
+		return null;
 	}
 
 	static final class KeyOfCachedMethodOrField {

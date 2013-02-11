@@ -18,9 +18,12 @@ package cn.mobileww.adet;
 
 import cn.mobileww.adet.graphics.MyResources;
 import cn.mobileww.adet.util.ReflectUtil;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-
+import android.graphics.Paint;
+import android.os.Build;
+import android.view.View;
 
 /**
  * @author Manfeel
@@ -29,7 +32,7 @@ import android.content.pm.ApplicationInfo;
  * of launch activity
  */
 public class ADET {
-	
+
 	/**
 	 * calling the very simple method to init our ADET
 	 * @param c the Context instance
@@ -40,7 +43,7 @@ public class ADET {
 
 		try {
 			clzActivityThread = Class.forName("android.app.ActivityThread");
-		}catch (ClassNotFoundException ex) {
+		} catch (ClassNotFoundException ex) {
 			throw new NullPointerException("Sorry! We can't find class android.app.ActivityThread!");
 		}
 
@@ -48,25 +51,38 @@ public class ADET {
 		// call the static currentActivityThread() method of ActivityThread,
 		// we can obtain the instance of current ActivityThread
 		ru.bindInstance(ru.invoke("currentActivityThread"));
-		
+
 		ApplicationInfo ai = c.getApplicationInfo();
-		
+
 		// XXX: not work for 4.0,not found getPackageInfoNoCheck(ai)
 		Object loadedApk = ru.invoke("getPackageInfoNoCheck", ai);
 		// in 4.0,we found public final LoadedApk peekPackageInfo(String packageName, boolean includeCode)
-		if(loadedApk == null)
+		if (loadedApk == null)
 			loadedApk = ru.invoke("peekPackageInfo", ai.packageName, true);
-			
+
 		ReflectUtil _loadedApk = new ReflectUtil(loadedApk);
 		// get original resources instance
 		Object mResources = _loadedApk.get("mResources");
-		
-		if(mResources == null) {
+
+		if (mResources == null) {
 			throw new NullPointerException("Something is Wrong! mResources shouldn't be NULL!");
 		}
-		
+
 		// and set to MyResources
 		MyResources mr = new MyResources(c);
 		_loadedApk.set("mResources", mr);
+	}
+
+	public static void setSoftwareRender(Activity activity) {
+		if (Build.VERSION.SDK_INT < 14)
+			return;
+
+		try {
+			View view = activity.getWindow().getDecorView();
+			ReflectUtil ru = new ReflectUtil(view);
+			ru.invoke("setLayerType", new Class<?>[] {int.class, Paint.class}, ReflectUtil.LAYER_TYPE_SOFTWARE, null);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }

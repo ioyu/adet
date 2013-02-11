@@ -78,33 +78,33 @@ public class DrawableStub {
 			drawable = new LevelListDrawable();
 		} else if (name.equals("layer-list")) {
 			drawable = new MyLayerDrawable();
-			//		}	else if (name.equals("svg-wrapper")) {
-			//			drawable = new SvgWrapper(); // custom svg wrapper drawable
+		} else if (name.equals("svg")) {
+			drawable = new SvgDrawable(); // custom svg wrapper drawable
 		} else if (name.equals("transition")) {
-			drawable = (Drawable) ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
+			drawable = ReflectUtil.New(TransitionDrawable.class);//new TransitionDrawable();
 		} else if (name.equals("color")) {
 			drawable = new ColorDrawable();
 		} else if (name.equals("shape")) {
 			drawable = new GradientDrawable();
 		} else if (name.equals("scale")) {
-			drawable = (Drawable) ReflectUtil.New(ScaleDrawable.class);//new ScaleDrawable();
+			drawable = ReflectUtil.New(ScaleDrawable.class);//new ScaleDrawable();
 		} else if (name.equals("clip")) {
-			drawable = (Drawable) ReflectUtil.New(ClipDrawable.class);//new ClipDrawable();
+			drawable = ReflectUtil.New(ClipDrawable.class);//new ClipDrawable();
 		} else if (name.equals("rotate")) {
 			drawable = new RotateDrawable();
 		} else if (name.equals("animated-rotate")) {
-			drawable = (Drawable) ReflectUtil.New("android.graphics.drawable.AnimatedRotateDrawable");//new AnimatedRotateDrawable();            
+			drawable = ReflectUtil.New("android.graphics.drawable.AnimatedRotateDrawable");//new AnimatedRotateDrawable();            
 		} else if (name.equals("animation-list")) {
 			drawable = new AnimationDrawable();
 		} else if (name.equals("inset")) {
-			drawable = (Drawable) ReflectUtil.New(InsetDrawable.class);//new InsetDrawable();
+			drawable = ReflectUtil.New(InsetDrawable.class);//new InsetDrawable();
 		} else if (name.equals("bitmap")) {
 			drawable = new BitmapDrawable();
 			if (r != null) {
 				((BitmapDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
 			}
 		} else if (name.equals("nine-patch")) {
-			drawable = (Drawable) ReflectUtil.New(NinePatchDrawable.class);//new NinePatchDrawable();
+			drawable = ReflectUtil.New(NinePatchDrawable.class);//new NinePatchDrawable();
 			if (r != null) {
 				((NinePatchDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
 			}
