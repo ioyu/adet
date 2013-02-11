@@ -15,6 +15,7 @@
  */
 package cn.mobileww.adet.sample;
 
+import cn.mobileww.adet.ADET;
 import android.app.Activity;
 import android.os.Bundle;
 
@@ -28,6 +29,7 @@ public class AdetSampleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.adet_demo_layout);
+		ADET.setSoftwareRender(this);
 	}
 	
 }
